@@ -7,6 +7,8 @@ const gallery=document.querySelector("ul");
 
 const images=document.querySelector(".gallery");
 
+const query=document.querySelector("input");
+
 let searchParam;
 
 let loadPage;
@@ -29,9 +31,7 @@ const fetchObjects = async () => {
 
         loadPage=1;
     
-        const elements={searchQuery}=evt.currentTarget;
-
-        searchParam=searchQuery.value;
+        searchParam=query.value;
         
         const searchParams = new URLSearchParams({
             per_page: 40,
