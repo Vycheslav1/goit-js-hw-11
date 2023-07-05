@@ -7,7 +7,7 @@ const gallery=document.querySelector("ul");
 
 const images=document.querySelector(".gallery");
 
-const query=document.querySelector("input");
+const query=document.querySelector(`input[name="searchQuery"]`);
 
 let searchParam;
 
