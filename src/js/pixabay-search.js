@@ -83,27 +83,27 @@ const BASE_URL=`https://pixabay.com/api/`;
        let markup=``;
 
       
-       for(const picture of pictures)
+       for(let i=0; i<pictures.length;i+=1)
        {
-        picture.forEach((subject)=>
+        for(let j=0;j<pictures[i].length;j+=1)
        {
-        markup+=`<li><div class="photo-card"><img src=${subject.webformatURL} alt=${subject.tags} width="400" height="400" loading="lazy" />
+        markup+=`<li><div class="photo-card"><img src=${pictures[i][j].webformatURL} alt=${pictures[i][j].tags} width="400" height="400" loading="lazy" />
      <div class="info">
        <p class="info-item">
-         <b>Likes</br>${subject.likes}</b>
+         <b>Likes</br>${pictures[i][j].likes}</b>
         </p>
        <p class="info-item">
-         <b>Views</br>${subject.views}</b>
+         <b>Views</br>${pictures[i][j].views}</b>
         </p>
        <p class="info-item">
-         <b>Comments</br>${subject.comments}</b>
+         <b>Comments</br>${pictures[i][j].comments}</b>
          </p>
        <p class="info-item">
-         <b>Downloads</br>${subject.downloads}</b>
+         <b>Downloads</br>${pictures[i][j].downloads}</b>
         </p>
      </div>
     </div></li>`;
-       });};
+       };};
     gallery.innerHTML=markup;
      
     
