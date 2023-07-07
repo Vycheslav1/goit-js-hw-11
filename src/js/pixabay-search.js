@@ -85,7 +85,7 @@ const BASE_URL=`https://pixabay.com/api/`;
       
        for(picture of pictures)
        {
-        for(subject of picture)
+        picture.forEach((subject)=>
        {
         markup+=`<li><div class="photo-card"><img src=${subject.webformatURL} alt=${subject.tags} width="400" height="400" loading="lazy" />
      <div class="info">
@@ -103,7 +103,7 @@ const BASE_URL=`https://pixabay.com/api/`;
         </p>
      </div>
     </div></li>`;
-       }};
+       });};
     gallery.innerHTML=markup;
      
     
