@@ -60,7 +60,7 @@ const BASE_URL=`https://pixabay.com/api/`;
    
            pictures.push(results.data.hits);
     
-           Notiflix.Notify.info(`Hooray! We found ${results.totalHits} images.`);
+       
 
          }
          
