@@ -83,7 +83,7 @@ const BASE_URL=`https://pixabay.com/api/`;
        let markup=``;
 
       
-       for(picture of pictures)
+       for(const picture of pictures)
        {
         picture.forEach((subject)=>
        {
