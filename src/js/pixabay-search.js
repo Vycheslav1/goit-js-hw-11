@@ -13,7 +13,7 @@ const BASE_URL=`https://pixabay.com/api/`;
     
   let searchParam;
 
- let pictures=[];
+  let pictures=[];
 
   let loadPage;
 
@@ -44,12 +44,12 @@ const BASE_URL=`https://pixabay.com/api/`;
        URL=`${BASE_URL}?${searchParams}`;
    
        fetchObjects().then(results => {
-       
+      
          if(!searchParam.trim())
          {
            return;
          }
-         if(results.totalHits===0)
+         if(results.data.totalHits===0)
          {
            Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
          
@@ -58,14 +58,14 @@ const BASE_URL=`https://pixabay.com/api/`;
           return;
          }else{
    
-           pictures.push(results.hits);
+           pictures.push(results.data.hits);
     
            Notiflix.Notify.info(`Hooray! We found ${results.totalHits} images.`);
 
          }
          
          renderCardsList(results);
-        
+         
                                 
       })
       .catch(error => {
@@ -111,10 +111,13 @@ const BASE_URL=`https://pixabay.com/api/`;
     
    const buttonLoad=document.querySelector(".load-more");
 
-    if(loadPage===Number.parseInt(results.totalHits/40))
+    if(loadPage===Number.parseInt(results.data.totalHits/40))
     {
-      Notiflix.Notify.info("We are sorry, but you've reached the end of search results.");
-     buttonLoad.remove();
+
+      buttonLoad.remove();
+
+      Notiflix.Notify.info("We're sorry, but you've reached the end of search results");
+    
       return;
     }
           
@@ -146,7 +149,7 @@ const BASE_URL=`https://pixabay.com/api/`;
             return;
           }
           
-           pictures.push(results.hits);
+           pictures.push(results.data.hits);
 
           renderCardsList(results);
    
