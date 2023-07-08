@@ -17,7 +17,7 @@ const BASE_URL=`https://pixabay.com/api/`;
 
   let loadPage;
 
-  
+  let pageNumber;
 
   buttonSearch.addEventListener("click",handleSeacrchClick);
 
@@ -28,7 +28,8 @@ const BASE_URL=`https://pixabay.com/api/`;
       pictures=[];
    
      loadPage=1;
-   
+
+       
      searchParam=query.value;
      
      const searchParams = new URLSearchParams({
@@ -39,10 +40,11 @@ const BASE_URL=`https://pixabay.com/api/`;
          orientation:"horisontal",
          safesearch:true,
          page:loadPage
+        
        });
-              
+       
        URL=`${BASE_URL}?${searchParams}`;
-   
+          
        fetchObjects().then(results => {
       
          if(!searchParam.trim())
@@ -81,12 +83,12 @@ const BASE_URL=`https://pixabay.com/api/`;
     {
     
        let markup=``;
-
-      
+        
        for(let i=0; i<pictures.length;i+=1)
        {
-        for(let j=0;j<pictures[i].length;j+=1)
+       for(let j=0;j<pictures[i].length;j+=1)
        {
+       
         markup+=`<li><div class="photo-card"><img src=${pictures[i][j].webformatURL} alt=${pictures[i][j].tags} width="400" height="400" loading="lazy" />
      <div class="info">
        <p class="info-item">
@@ -106,21 +108,20 @@ const BASE_URL=`https://pixabay.com/api/`;
        };};
     gallery.innerHTML=markup;
      
-    
-   gallery.insertAdjacentHTML("beforeend",`<div class="button-wrapper"><button type="button" class="load-more">Load more</button></div>`);
+    gallery.insertAdjacentHTML("beforeend",`<div class="button-wrapper"><button type="button" class="load-more">Load more</button></div>`);
     
    const buttonLoad=document.querySelector(".load-more");
 
-    if(loadPage===Number.parseInt(results.data.totalHits/40))
+    if(loadPage*40>=results.data.totalHits)
     {
 
       buttonLoad.remove();
 
       Notiflix.Notify.info("We're sorry, but you've reached the end of search results");
-    
+     
       return;
     }
-          
+
     buttonLoad.addEventListener("click",(evt)=>{
     
     
@@ -130,6 +131,7 @@ const BASE_URL=`https://pixabay.com/api/`;
   
        buttonLoad.classList.toggle("is-hidden");
     
+   
       const searchParams = new URLSearchParams({
           per_page: 40,
           key: "38043357-f10dc93754f8f78d0f9509fe0",
@@ -137,9 +139,18 @@ const BASE_URL=`https://pixabay.com/api/`;
           image_type:"photo",
           orientation:"horisontal",
           safesearch:true,
-          page:loadPage
+          page:loadPage,
+          
         });
-               
+      
+        if(loadPage*40>=results.data.totalHits)
+        {
+          pageNumber=(results.data.totalHits)%((loadPage-1)*40);
+        
+          searchParams.set("per_page", pageNumber);
+         
+         }
+       
         URL=`${BASE_URL}?${searchParams}`;
    
         fetchObjects().then(results => {
@@ -157,7 +168,8 @@ const BASE_URL=`https://pixabay.com/api/`;
    
    })
    
-   });
+   });  
+    
     }
     
     
